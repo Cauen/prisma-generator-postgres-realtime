@@ -1,6 +1,6 @@
 {
   "name": "prisma-generator-postgres-realtime",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "license": "MIT",
   "description": "A prisma generator that turns your Postgres Database into a realtime Database and make it easy to subscribe to changes from Prisma Client type-safe Api",
   "main": "./src/index.js",
@@ -16,16 +16,15 @@
   },
   "author": "Cauê Nolasco",
   "keywords": [
-    "realtime",
-    "generator",
-    "extension",
-    "subscription",
-    "graphql",
-    "typescript",
-    "prisma",
-    "db",
-    "postgres",
-    "codegen"
+      "realtime",
+      "generator",
+      "extension",
+      "subscription",
+      "typescript",
+      "prisma",
+      "db",
+      "postgres",
+      "codegen"
   ],
   "scripts": {
     "test": "jest",
