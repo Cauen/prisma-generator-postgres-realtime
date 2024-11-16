@@ -1,0 +1,17 @@
+{
+  "migratedModels": [
+    "User",
+    "UserLast",
+    "Post",
+    "ExtraModal",
+    "Comment",
+    "Profile",
+    "Follow",
+    "Unrelated",
+    "IdOnly",
+    "WithoutID",
+    "WithScalars",
+    "SnakeInDb",
+    "KebabInDb"
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "name": "prisma-generator-postgres-realtime",
+  "version": "0.1.0",
+  "license": "MIT",
+  "description": "A prisma generator that turns your Postgres Database into a realtime Database and make it easy to subscribe to changes from Prisma Client type-safe Api",
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
+  "module": "./src/index.js",
+  "exports": {
+    "import": "./src/index.js",
+    "require": "./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cauen/prisma-generator-postgres-realtime.git"
+  },
+  "author": "Cauê Nolasco",
+  "keywords": [
+    "realtime",
+    "generator",
+    "extension",
+    "subscription",
+    "graphql",
+    "typescript",
+    "prisma",
+    "db",
+    "postgres",
+    "codegen"
+  ],
+  "scripts": {
+    "test": "jest",
+    "build": "tsc",
+    "tscheck": "tsc -noEmit",
+    "prebuild": "yarn clean",
+    "postbuild": "shx cp ./README.md ./dist && shx chmod +x ./dist/src/bin.js",
+    "clean": "shx rm -rf dist",
+    "pub": "cd dist && npm publish",
+    "format": "eslint --fix ./src",
+    "check-src-and-examples": "yarn test && yarn tscheck && cd examples/inputs-simple-sqlite && yarn generate && yarn tscheck",
+    "fullcheck": "yarn check-src-and-examples"
+  },
+  "bin": {
+    "prisma-generator-postgres-realtime": "./src/bin.js"
+  },
+  "peerDependencies": {
+    "pg": "^8.0.0",
+    "@prisma/client": "^5.0.0",
+    "prisma": "^5.0.0"
+  },
+  "devDependencies": {
+    "@prisma/internals": "5.17.0",
+    "@types/jest": "29.0.0",
+    "@types/node": "18.7.14",
+    "@typescript-eslint/eslint-plugin": "^6.10.0",
+    "@typescript-eslint/parser": "^6.10.0",
+    "eslint": "^8.53.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-n": "^16.3.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "jest": "<29.0.0",
+    "prettier": "^3.0.3",
+    "shx": "0.3.4",
+    "ts-jest": "28.0.8",
+    "ts-node": "10.9.1",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@prisma/generator-helper": "^5.22.0"
+  },
+  "packageManager": "yarn@1.22.21+sha1.1959a18351b811cdeedbd484a8f86c3cc3bbaf72"
+}

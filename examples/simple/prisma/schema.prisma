@@ -1,0 +1,134 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator realtime {
+  provider            = "ts-node --transpile-only ../../src/generator.ts"
+  generatorConfigPath = "../src/realtime/configs.js"
+}
+
+/// User of prisma
+model User {
+  id        Int       @id @default(autoincrement())
+  /// firstname description
+  firstName String
+  /// lastname description
+  lastName  String
+  birthdate DateTime
+  login     String
+  password  String
+  /// relation desc 
+  Posts     Post[]
+  Comments  Comment[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+  Profile   Profile[]
+  Followers Follow[]  @relation("followers")
+  Following Follow[]  @relation("following")
+}
+
+/// Its for check for duplicating User.LastName and UserLast.Name
+model UserLast {
+  id   Int    @id @default(autoincrement())
+  name String
+}
+
+model Post {
+  id       Int       @id @default(autoincrement())
+  title    String
+  /// createdAt description
+  content  String
+  Author   User      @relation(fields: [authorId], references: [id])
+  Comments Comment[]
+  authorId Int
+}
+
+model ExtraModal {
+  id        Int       @id @default(autoincrement())
+  /// The title of extramodal
+  title     String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+}
+
+/// This is a comment
+/// This is a multiline comment
+/// This is a 'single quote' comment
+/// This is a "double quote" comment
+/// This is a `backtick` comment
+model Comment {
+  /// This is a comment
+  /// This is a multiline comment
+  /// This is a 'single quote' comment
+  /// This is a "double quote" comment
+  /// This is a `backtick` comment
+  id       Int    @id @default(autoincrement())
+  /// This is a 'single quote' comment
+  comment  String
+  /// This is a "double quote" comment
+  Author   User   @relation(fields: [authorId], references: [id])
+  /// This is a `backtick` comment
+  Post     Post   @relation(fields: [postId], references: [id])
+  authorId Int
+  postId   Int
+}
+
+model Profile {
+  id     Int     @id @default(autoincrement())
+  bio    String?
+  User   User    @relation(fields: [userId], references: [id])
+  userId Int     @unique
+}
+
+model Follow {
+  fromId Int
+  toId   Int
+  From   User @relation("following", fields: [fromId], references: [id])
+  To     User @relation("followers", fields: [toId], references: [id])
+
+  @@id([fromId, toId], name: "compositeID")
+}
+
+model Unrelated {
+  id   Int     @id @default(autoincrement())
+  name String?
+}
+
+model IdOnly {
+  id Int @id @default(autoincrement())
+}
+
+model WithoutID {
+  name String @unique
+}
+
+model WithScalars {
+  id       BigInt    @id @default(autoincrement())
+  string   String?
+  boolean  Boolean?
+  int      Int?
+  float    Float?
+  decimal  Decimal?
+  bigint   BigInt?
+  datetime DateTime?
+  bytes    Bytes?
+}
+
+model SnakeInDb {
+  id    Int    @id @default(autoincrement())
+  title String
+
+  @@map("snake_in_db")
+}
+
+model KebabInDb {
+  id    Int    @id @default(autoincrement())
+  title String
+
+  @@map("kebab-in-db")
+}
